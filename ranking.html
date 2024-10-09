@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PublicClass Ranking</title>
+    <style>
+        @font-face {
+            font-family: DoubleBass;
+            src: url('Fonte/DoubleBass-regular-trial.ttf');
+        }
+
+        @font-face {
+            font-family: DoubleBassB;
+            src: url('Fonte/DoubleBass-Bold-trial.ttf');
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url('IMG/fd_mtr.png'), radial-gradient(farthest-corner at center, rgba(36, 123, 160, 1) 0%, rgba(0, 100, 148, 1) 30%, rgba(19, 41, 61, 1) 100%);
+            background-repeat: repeat-y;
+            background-position: 0% 0%, 100% 100%;
+            background-size: cover;
+            width: 100%;
+            height: 100vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* Oculta a barra de rolagem do body */
+        }
+
+        .classifc {
+            font-family: DoubleBass;
+        }
+
+        .container {
+            display: flex;
+            width: 90%;
+            /* Largura da área de conteúdo */
+            position: relative;
+            /* Para posicionamento do botão de menu */
+            height: 100%;
+        }
+
+        .ranking {
+            width: 70%;
+            /* A largura do ranking */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            position: relative;
+            /* Para posicionamento do fundo */
+        }
+
+        .quadro {
+            background-color: rgba(41, 96, 127, 0.6);
+            border: none;
+            padding: 20px;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .ranking h1 {
+            font-size: 75px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-family: DoubleBassB;
+
+        }
+
+        .ranking h2 {
+            font-size: 24px;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .podio {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .cilindro {
+            width: 80px;
+            /* largura do cilindro */
+            border-radius: 40px;
+            /* bordas arredondadas para parecer cilindro */
+            background: linear-gradient(to bottom, #ffcc00, #ff9900);
+            /* gradiente para efeito 3D */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            margin: 0 10px;
+            /* espaço entre os cilindros */
+            padding: 10px 0;
+            /* espaço no topo */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5),
+                inset 0 10px 20px rgba(255, 255, 255, 0.2),
+                inset 0 -10px 20px rgba(0, 0, 0, 0.2);
+            /* Sombra para efeito cilíndrico */
+            transition: transform 0.3s;
+            /* Transição ao passar o mouse */
+        }
+
+        .cilindro:before,
+        .cilindro:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 15px;
+            /* altura das sombras do topo e da base */
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            /* sombra no topo e base */
+        }
+
+        .cilindro:before {
+            top: 0;
+            transform: translateY(-50%);
+        }
+
+        .cilindro:after {
+            bottom: 0;
+            transform: translateY(50%);
+        }
+
+        .cilindro:hover {
+            transform: scale(1.05);
+            /* Efeito de zoom ao passar o mouse */
+        }
+
+
+        .cilindro {
+            width: 80px;
+            
+            background: linear-gradient(to bottom, #ffcc00, #ff9900);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            margin: 0 10px;
+            padding: 10px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .cilindro:hover {
+            transform: scale(1.05);
+        }
+
+        .cilindro:first-child {
+            height: 250px;
+        }
+
+        .cilindro:nth-child(2) {
+            height: 220px;
+        }
+
+        .cilindro:nth-child(3) {
+            height: 200px;
+        }
+
+        .topo {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            /* Espaço entre o topo e o nome */
+        }
+
+        .barra-lateral {
+            width: 30%;
+            background: rgba(49, 49, 49, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            height: 100%;
+            /* Altura fixa da barra lateral */
+            overflow-y: auto;
+            /* Ativa a barra de rolagem vertical */
+            margin-left: 20px;
+            /* Espaço entre a lista de classificação e a barra lateral */
+            transition: transform 0.3s ease;
+            /* Transição suave ao abrir/fechar */
+        }
+
+        .barra-lateral.oculta {
+            transform: translateX(100%);
+            /* Move a barra lateral para fora da tela */
+        }
+
+        .barra-lateral h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Centraliza o título e as imagens */
+        }
+
+        .barra-lateral ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .barra-lateral li {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        .barra-lateral li:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .barra-lateral img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .tempo {
+            font-size: 12px;
+            margin-left: auto;
+            color: #ccc;
+        }
+
+        .menu {
+            display: none;
+            /* Esconder por padrão */
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+            /* Colocar acima dos outros elementos */
+        }
+
+        .imagens-titulo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+            /* Espaço entre o título e as imagens */
+        }
+
+        .imagens-titulo img {
+            width: 35px;
+            /* Largura das imagens */
+            height: 35px;
+            /* Altura das imagens */
+            margin: 0 5px;
+            /* Espaço entre as imagens */
+        }
+
+        @media (max-width: 768px) {
+            .barra-lateral {
+                display: none;
+                /* Ocultar a barra lateral em telas menores */
+            }
+
+            .menu {
+                display: block;
+                /* Mostrar o botão do menu */
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cilindro {
+                width: 60px;
+                /* largura do cilindro em telas menores */
+                font-size: 18px;
+                /* tamanho da fonte menor */
+            }
+
+            .ranking h1 {
+                font-size: 36px;
+                /* tamanho do título menor */
+            }
+
+            .ranking h2 {
+                font-size: 30px;
+                /* tamanho do subtítulo menor */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="ranking">
+            <div class="quadro">
+                <img src="IMG/robo_index.png" alt="Robô"
+                    style="position: absolute; top: 20px; margin-top:15vh; left: -15px; width: 150px; height: auto; z-index: 10;">
+
+                <h1>PublicClass</h1>
+                <h2>Ranking</h2>
+                <div class="podio">
+                    <div class="cilindro">
+                        <div class="topo">2º</div>
+                        Pedro Gabriel<br>19/20<br>02:10
+
+                    </div>
+                    <div class="cilindro">
+                        <div class="topo">1º</div>
+                        João Pedro<br>20/20<br>04:20
+
+                    </div>
+                    <div class="cilindro">
+                        <div class="topo">3º</div>
+                        Riquelme<br>19/20<br>03:40
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="barra-lateral" id="barra-lateral">
+            <h2 class="classifc">
+                Classificação
+                <div class="imagens-titulo">
+                    <img src="IMG/correto_rank.png" alt="Imagem 1">
+                    <img src="IMG/rel_ranking.png" alt="Imagem 2">
+                </div>
+            </h2>
+            <ul id="ranking-list">
+                <!-- Lista será carregada dinamicamente via JavaScript -->
+            </ul>
+        </div>
+
+        <div class="menu" id="menu">
+            ☰
+        </div>
+    </div>
+
+    <script>
+        const dadosRanking = [
+            { nome: "Juuan Pedu", pontuacao: "15/20", tempo: "10:10", img: "IMG/avatar1.png" },
+            { nome: "Maria Dodo", pontuacao: "14/20", tempo: "07:30", img: "IMG/avatar2.png" },
+            { nome: "Carlão Maos", pontuacao: "13/20", tempo: "02:12", img: "IMG/avatar3.png" },
+            { nome: "Cesinha", pontuacao: "12/20", tempo: "00:59", img: "IMG/avatar4.png" },
+            { nome: "Luci Frutas", pontuacao: "11/20", tempo: "10:10", img: "IMG/avatar5.png" },
+        ];
+
+        const rankingList = document.getElementById('ranking-list');
+
+        dadosRanking.forEach((dado) => {
+            const li = document.createElement('li');
+            li.innerHTML = `<img src="${dado.img}" alt="${dado.nome}"><span>${dado.nome} - ${dado.pontuacao} <span class="tempo">${dado.tempo}</span></span>`;
+            rankingList.appendChild(li);
+        });
+
+        const menuButton = document.getElementById('menu');
+        const barraLateral = document.getElementById('barra-lateral');
+
+        menuButton.addEventListener('click', () => {
+            barraLateral.classList.toggle('oculta');
+        });
+    </script>
+</body>
+
+</html>

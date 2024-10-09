@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pódio com CSS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #2c567b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .podium {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+        }
+
+        .step {
+            width: 120px;
+            background: #ff7f00;
+            margin: 0 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            border-radius: 10px 10px 0 0;
+            color: white;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        .step h1 {
+            margin: 0;
+            font-size: 40px;
+            color: white;
+        }
+
+        .step p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #fff;
+            border: 4px solid #ff7f00;
+            margin: 10px 0;
+            position: absolute;
+            top: -40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .avatar img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        .check {
+            color: green;
+        }
+
+        .clock {
+            color: red;
+        }
+
+        .first { height: 200px; }
+        .second { height: 160px; }
+        .third { height: 130px; }
+
+        /* Ajuste do fundo */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-image: url('https://img.freepik.com/free-vector/education-seamless-pattern-background-with-icons-learning_1017-34904.jpg');
+            background-size: cover;
+            opacity: 0.2;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="podium">
+        <div class="step second">
+            <div class="avatar">
+                <img src="https://via.placeholder.com/70" alt="Pedro Gabriel">
+            </div>
+            <h1>2</h1>
+            <p>Pedro Gabriel</p>
+            <p>19/20 <span class="icon check">✔️</span></p>
+            <p>02:10 <span class="icon clock">⏱️</span></p>
+        </div>
+        <div class="step first">
+            <div class="avatar">
+                <img src="https://via.placeholder.com/70" alt="João Pedro">
+            </div>
+            <h1>1</h1>
+            <p>João Pedro</p>
+            <p>20/20 <span class="icon check">✔️</span></p>
+            <p>04:20 <span class="icon clock">⏱️</span></p>
+        </div>
+        <div class="step third">
+            <div class="avatar">
+                <img src="https://via.placeholder.com/70" alt="Riquelme">
+            </div>
+            <h1>3</h1>
+            <p>Riquelme</p>
+            <p>19/20 <span class="icon check">✔️</span></p>
+            <p>03:40 <span class="icon clock">⏱️</span></p>
+        </div>
+    </div>
+</body>
+</html>
